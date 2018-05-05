@@ -17,7 +17,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     var timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mm:ss.SS"
+//        formatter.dateFormat = "hh:mm:ss.SS" // more precise, higher CPU
+        formatter.dateFormat = "hh:mm:ss.S"
 
         return formatter
     }()
@@ -27,7 +28,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
         timer = DispatchSource.makeTimerSource(queue: .main)
 
-        timer?.schedule(deadline: .now(), repeating: .milliseconds(10))
+//        timer?.schedule(deadline: .now(), repeating: .milliseconds(10)) // more precise, higher CPU
+        timer?.schedule(deadline: .now(), repeating: .milliseconds(100))
 
         timer?.setEventHandler { [weak self] in
             self?.updateClock()
